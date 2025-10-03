@@ -22,6 +22,10 @@
             --dark: #202124;
             --gray: #5f6368;
             --light-gray: #dadce0;
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
         }
 
         body {
@@ -396,30 +400,82 @@
             background: var(--light-gray);
         }
 
-        .social-login {
+        .google-login {
             display: flex;
             justify-content: center;
-            gap: 15px;
             margin-bottom: 20px;
         }
 
-        .social-btn {
-            width: 50px;
-            height: 50px;
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: white;
+            color: var(--gray);
+            border: 1px solid var(--light-gray);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 280px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(66, 133, 244, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .google-btn:hover::before {
+            left: 100%;
+        }
+
+        .google-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border-color: var(--google-blue);
+        }
+
+        .google-btn:active {
+            transform: translateY(0);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: conic-gradient(
+                from -45deg,
+                var(--google-red) 0deg 90deg,
+                var(--google-yellow) 90deg 180deg,
+                var(--google-green) 180deg 270deg,
+                var(--google-blue) 270deg 360deg
+            );
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--light);
-            color: var(--gray);
-            border: 1px solid var(--light-gray);
-            cursor: pointer;
-            transition: all 0.3s;
+            position: relative;
         }
 
-        .social-btn:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .google-icon::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
         }
 
         .signup {
@@ -633,16 +689,11 @@
                 
                 <div class="divider">or continue with</div>
                 
-                <div class="social-login">
-                    <div class="social-btn">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <div class="social-btn">
-                        <i class="fab fa-microsoft"></i>
-                    </div>
-                    <div class="social-btn">
-                        <i class="fab fa-apple"></i>
-                    </div>
+                <div class="google-login">
+                    <button type="button" class="google-btn" id="googleLogin">
+                        <div class="google-icon"></div>
+                        <span>Continue with Google</span>
+                    </button>
                 </div>
                 
                 <div class="signup">
@@ -699,6 +750,23 @@
             } else {
                 alert('Please fill in all fields');
             }
+        });
+
+        // Google login button functionality
+        document.getElementById('googleLogin').addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+            btn.disabled = true;
+            
+            // Simulate Google authentication
+            setTimeout(() => {
+                alert('Google authentication successful! Redirecting...');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                // Here you would typically redirect after successful Google auth
+            }, 1500);
         });
 
         // Create floating particles
