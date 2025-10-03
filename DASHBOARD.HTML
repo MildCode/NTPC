@@ -17,13 +17,15 @@
             --primary: #1a3a5a;
             --secondary: #2a5a7a;
             --accent: #ff9800;
+            --accent-dark: #e68900;
             --light: #e9f2ff;
             --dark: #0a1a2a;
             --success: #4CAF50;
             --warning: #FFC107;
             --danger: #F44336;
             --gray: #78909C;
-            --sidebar-width: 250px;
+            --gray-light: #eceff1;
+            --sidebar-width: 260px;
         }
         
         body {
@@ -31,6 +33,7 @@
             color: #333;
             min-height: 100vh;
             display: flex;
+            overflow-x: hidden;
         }
         
         /* Sidebar Styles */
@@ -44,6 +47,8 @@
             top: 0;
             padding: 20px 0;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: transform 0.3s ease;
         }
         
         .logo-container {
@@ -104,6 +109,7 @@
             flex: 1;
             margin-left: var(--sidebar-width);
             padding: 20px;
+            transition: margin-left 0.3s ease;
         }
         
         /* Header Styles */
@@ -157,6 +163,7 @@
             padding: 8px 15px;
             border-radius: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
         
         .user-profile img {
@@ -216,6 +223,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             cursor: pointer;
+            border: 1px solid #eee;
         }
         
         .action-card:hover {
@@ -224,7 +232,7 @@
         }
         
         .action-card.primary {
-            background: linear-gradient(135deg, var(--accent), #ff5722);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
         }
         
@@ -267,6 +275,7 @@
             padding: 25px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
         }
         
         .status-count {
@@ -299,6 +308,7 @@
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
+            border: 1px solid #eee;
         }
         
         .uploads-list {
@@ -311,6 +321,12 @@
             align-items: center;
             padding: 15px 0;
             border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .upload-item:hover {
+            background: var(--gray-light);
         }
         
         .upload-item:last-child {
@@ -384,6 +400,7 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
         }
         
         .stat-value {
@@ -420,6 +437,7 @@
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
+            border: 1px solid #eee;
         }
         
         .filter-row {
@@ -439,13 +457,19 @@
             font-weight: 500;
         }
         
-        .filter-select {
+        .filter-select, .filter-input {
             width: 100%;
             padding: 12px 15px;
             border-radius: 10px;
             border: 1px solid #ddd;
             background: white;
             font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .filter-select:focus, .filter-input:focus {
+            border-color: var(--accent);
+            outline: none;
         }
         
         .compare-btn {
@@ -464,7 +488,7 @@
         }
         
         .compare-btn:hover {
-            background: #e68900;
+            background: var(--accent-dark);
         }
         
         /* Notifications Section */
@@ -473,6 +497,7 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
         }
         
         .notification-item {
@@ -480,6 +505,11 @@
             align-items: flex-start;
             padding: 15px 0;
             border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .notification-item:hover {
+            background: var(--gray-light);
         }
         
         .notification-item:last-child {
@@ -531,6 +561,7 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
         }
         
         .activity-list, .equipment-list {
@@ -541,6 +572,11 @@
         .activity-item, .equipment-item {
             padding: 12px 0;
             border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .activity-item:hover, .equipment-item:hover {
+            background: var(--gray-light);
         }
         
         .activity-item:last-child, .equipment-item:last-child {
@@ -589,29 +625,32 @@
             font-size: 0.8rem;
         }
         
-        /* Camera Modal */
-        .camera-modal {
+        /* Modal Styles */
+        .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             display: none;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
         
-        .camera-container {
+        .modal-content {
             background: white;
             border-radius: 15px;
-            width: 80%;
+            width: 90%;
             max-width: 800px;
+            max-height: 90vh;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
-        .camera-header {
+        .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -620,53 +659,21 @@
             color: white;
         }
         
-        .camera-body {
+        .modal-body {
             padding: 30px;
-            text-align: center;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+            max-height: 70vh;
+            overflow-y: auto;
         }
         
-        .camera-preview {
-            width: 100%;
-            max-width: 500px;
-            height: 300px;
-            background: #eee;
-            border-radius: 10px;
+        .modal-footer {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: #777;
-        }
-        
-        .camera-footer {
-            display: flex;
-            justify-content: center;
+            justify-content: flex-end;
+            gap: 15px;
             padding: 20px;
-            gap: 20px;
+            border-top: 1px solid #eee;
         }
         
-        .capture-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 5px solid var(--accent);
-            cursor: pointer;
-        }
-        
-        .capture-btn i {
-            font-size: 1.8rem;
-            color: var(--dark);
-        }
-        
+        /* Button Styles */
         .btn {
             padding: 12px 25px;
             border-radius: 8px;
@@ -674,6 +681,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn-primary {
@@ -682,7 +692,7 @@
         }
         
         .btn-primary:hover {
-            background: #e68900;
+            background: var(--accent-dark);
         }
         
         .btn-secondary {
@@ -692,6 +702,149 @@
         
         .btn-secondary:hover {
             background: #ddd;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #3d8b40;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+        
+        /* Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .photo-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .photo-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .photo-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+        
+        .photo-info {
+            padding: 10px;
+            background: white;
+        }
+        
+        .photo-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .photo-details {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .right-sidebar {
+                grid-row: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -704,31 +857,31 @@
         </div>
         
         <ul class="nav-menu">
-            <li class="nav-item active">
+            <li class="nav-item active" data-page="dashboard">
                 <i class="nav-icon fas fa-home"></i>
                 <span>Dashboard</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-page="capture">
                 <i class="nav-icon fas fa-camera"></i>
                 <span>Capture Photos</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-page="gallery">
                 <i class="nav-icon fas fa-images"></i>
-                <span>View Photos</span>
+                <span>Photo Gallery</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-page="tasks">
                 <i class="nav-icon fas fa-tasks"></i>
                 <span>Tasks</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-page="history">
                 <i class="nav-icon fas fa-history"></i>
                 <span>History</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-page="reports">
                 <i class="nav-icon fas fa-chart-bar"></i>
                 <span>Reports</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-page="settings">
                 <i class="nav-icon fas fa-cog"></i>
                 <span>Settings</span>
             </li>
@@ -739,13 +892,13 @@
     <div class="main-content">
         <!-- Header -->
         <div class="header">
-            <h1 class="header-title">Equipment Monitoring Dashboard</h1>
+            <h1 class="header-title" id="pageTitle">Equipment Monitoring Dashboard</h1>
             <div class="header-actions">
                 <div class="role-switcher">
                     <div class="role-btn active" onclick="switchRole('worker')">Worker View</div>
                     <div class="role-btn" onclick="switchRole('executive')">Executive View</div>
                 </div>
-                <div class="user-profile">
+                <div class="user-profile" onclick="toggleUserMenu()">
                     <img src="https://ui-avatars.com/api/?name=Rajesh+Kumar&background=ff9800&color=fff" alt="User">
                     <div class="user-info">
                         <div class="user-name" id="userName">Rajesh Kumar</div>
@@ -760,9 +913,9 @@
             <!-- Left Column -->
             <div class="left-column">
                 <!-- Worker Dashboard -->
-                <div class="worker-dashboard">
+                <div class="worker-dashboard" id="workerDashboard">
                     <div class="quick-actions">
-                        <div class="action-card primary" onclick="openCamera()">
+                        <div class="action-card primary" onclick="openModal('cameraModal')">
                             <div class="action-icon">
                                 <i class="fas fa-camera"></i>
                             </div>
@@ -770,7 +923,7 @@
                             <p class="action-desc">Take equipment photo with details</p>
                         </div>
                         
-                        <div class="action-card" onclick="viewUploadedPhotos()">
+                        <div class="action-card" onclick="navigateTo('gallery')">
                             <div class="action-icon">
                                 <i class="fas fa-images"></i>
                             </div>
@@ -778,7 +931,7 @@
                             <p class="action-desc">Browse uploaded equipment images</p>
                         </div>
                         
-                        <div class="action-card">
+                        <div class="action-card" onclick="openModal('uploadModal')">
                             <div class="action-icon">
                                 <i class="fas fa-upload"></i>
                             </div>
@@ -789,17 +942,17 @@
                     
                     <div class="status-cards">
                         <div class="status-card status-pending">
-                            <div class="status-count">12</div>
+                            <div class="status-count" id="pendingCount">12</div>
                             <div class="status-text">Pending Review</div>
                         </div>
                         
                         <div class="status-card status-approved">
-                            <div class="status-count">45</div>
+                            <div class="status-count" id="approvedCount">45</div>
                             <div class="status-text">Approved</div>
                         </div>
                         
                         <div class="status-card status-rejected">
-                            <div class="status-count">3</div>
+                            <div class="status-count" id="rejectedCount">3</div>
                             <div class="status-text">Rejected</div>
                         </div>
                     </div>
@@ -807,62 +960,20 @@
                     <div class="uploads-section">
                         <div class="section-title">
                             <span>Recent Uploads</span>
-                            <span style="color: var(--accent); font-size: 0.9rem; cursor: pointer;">View All</span>
+                            <span style="color: var(--accent); font-size: 0.9rem; cursor: pointer;" onclick="navigateTo('gallery')">View All</span>
                         </div>
                         
-                        <div class="uploads-list">
-                            <div class="upload-item">
-                                <div class="upload-icon">
-                                    <i class="fas fa-fire"></i>
-                                </div>
-                                <div class="upload-details">
-                                    <div class="upload-title">Boiler #B-12 - Temperature Check</div>
-                                    <div class="upload-info">Today, 10:30 AM | Plant A</div>
-                                </div>
-                                <div class="upload-status status-pending">Pending</div>
-                            </div>
-                            
-                            <div class="upload-item">
-                                <div class="upload-icon">
-                                    <i class="fas fa-fan"></i>
-                                </div>
-                                <div class="upload-details">
-                                    <div class="upload-title">Turbine #T-05 - Vibration Analysis</div>
-                                    <div class="upload-info">Yesterday, 2:15 PM | Plant B</div>
-                                </div>
-                                <div class="upload-status status-approved">Approved</div>
-                            </div>
-                            
-                            <div class="upload-item">
-                                <div class="upload-icon">
-                                    <i class="fas fa-bolt"></i>
-                                </div>
-                                <div class="upload-details">
-                                    <div class="upload-title">Generator #G-08 - Weekly Inspection</div>
-                                    <div class="upload-info">2 days ago, 9:45 AM | Plant A</div>
-                                </div>
-                                <div class="upload-status status-rejected">Rejected</div>
-                            </div>
-                            
-                            <div class="upload-item">
-                                <div class="upload-icon">
-                                    <i class="fas fa-water"></i>
-                                </div>
-                                <div class="upload-details">
-                                    <div class="upload-title">Condenser #C-15 - Pressure Test</div>
-                                    <div class="upload-info">3 days ago, 11:20 AM | Plant C</div>
-                                </div>
-                                <div class="upload-status status-approved">Approved</div>
-                            </div>
+                        <div class="uploads-list" id="recentUploads">
+                            <!-- Recent uploads will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
                 
                 <!-- Executive Dashboard -->
-                <div class="executive-dashboard">
+                <div class="executive-dashboard" id="executiveDashboard">
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-value">156</div>
+                            <div class="stat-value" id="totalUploads">156</div>
                             <div class="stat-label">Total Uploads This Month</div>
                             <div class="stat-trend trend-up">
                                 <i class="fas fa-arrow-up"></i> 12% from last month
@@ -870,7 +981,7 @@
                         </div>
                         
                         <div class="stat-card">
-                            <div class="stat-value">87%</div>
+                            <div class="stat-value" id="approvalRate">87%</div>
                             <div class="stat-label">Approval Rate</div>
                             <div class="stat-trend trend-up">
                                 <i class="fas fa-arrow-up"></i> 5% improvement
@@ -878,7 +989,7 @@
                         </div>
                         
                         <div class="stat-card">
-                            <div class="stat-value">42</div>
+                            <div class="stat-value" id="pendingReview">42</div>
                             <div class="stat-label">Pending Review</div>
                             <div class="stat-trend trend-down">
                                 <i class="fas fa-arrow-down"></i> 8% from last week
@@ -886,7 +997,7 @@
                         </div>
                         
                         <div class="stat-card">
-                            <div class="stat-value">12</div>
+                            <div class="stat-value" id="activeSites">12</div>
                             <div class="stat-label">Active Sites</div>
                             <div class="stat-trend">No change</div>
                         </div>
@@ -900,24 +1011,24 @@
                         <div class="filter-row">
                             <div class="filter-item">
                                 <div class="filter-label">Equipment Type</div>
-                                <select class="filter-select">
-                                    <option>All Equipment</option>
-                                    <option>Boiler</option>
-                                    <option>Turbine</option>
-                                    <option>Generator</option>
-                                    <option>Condenser</option>
-                                    <option>Cooling Tower</option>
+                                <select class="filter-select" id="equipmentFilter">
+                                    <option value="all">All Equipment</option>
+                                    <option value="boiler">Boiler</option>
+                                    <option value="turbine">Turbine</option>
+                                    <option value="generator">Generator</option>
+                                    <option value="condenser">Condenser</option>
+                                    <option value="cooling-tower">Cooling Tower</option>
                                 </select>
                             </div>
                             
                             <div class="filter-item">
                                 <div class="filter-label">Location</div>
-                                <select class="filter-select">
-                                    <option>All Locations</option>
-                                    <option>Plant A</option>
-                                    <option>Plant B</option>
-                                    <option>Plant C</option>
-                                    <option>Plant D</option>
+                                <select class="filter-select" id="locationFilter">
+                                    <option value="all">All Locations</option>
+                                    <option value="plant-a">Plant A</option>
+                                    <option value="plant-b">Plant B</option>
+                                    <option value="plant-c">Plant C</option>
+                                    <option value="plant-d">Plant D</option>
                                 </select>
                             </div>
                         </div>
@@ -925,39 +1036,39 @@
                         <div class="filter-row">
                             <div class="filter-item">
                                 <div class="filter-label">Date From</div>
-                                <input type="date" class="filter-select">
+                                <input type="date" class="filter-input" id="dateFrom">
                             </div>
                             
                             <div class="filter-item">
                                 <div class="filter-label">Date To</div>
-                                <input type="date" class="filter-select">
+                                <input type="date" class="filter-input" id="dateTo">
                             </div>
                         </div>
                         
                         <div class="filter-row">
                             <div class="filter-item">
                                 <div class="filter-label">Status</div>
-                                <select class="filter-select">
-                                    <option>All Status</option>
-                                    <option>Pending</option>
-                                    <option>Approved</option>
-                                    <option>Rejected</option>
+                                <select class="filter-select" id="statusFilter">
+                                    <option value="all">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
                                 </select>
                             </div>
                             
                             <div class="filter-item">
                                 <div class="filter-label">Technician</div>
-                                <select class="filter-select">
-                                    <option>All Technicians</option>
-                                    <option>Rajesh Kumar</option>
-                                    <option>Priya Singh</option>
-                                    <option>Amit Sharma</option>
-                                    <option>Neha Patel</option>
+                                <select class="filter-select" id="technicianFilter">
+                                    <option value="all">All Technicians</option>
+                                    <option value="rajesh">Rajesh Kumar</option>
+                                    <option value="priya">Priya Singh</option>
+                                    <option value="amit">Amit Sharma</option>
+                                    <option value="neha">Neha Patel</option>
                                 </select>
                             </div>
                         </div>
                         
-                        <button class="compare-btn">
+                        <button class="compare-btn" onclick="openModal('compareModal')">
                             <i class="fas fa-columns"></i> Compare Photos
                         </button>
                     </div>
@@ -965,42 +1076,11 @@
                     <div class="notifications-section">
                         <div class="section-title">
                             <span>Notifications</span>
-                            <span style="color: var(--accent); font-size: 0.9rem; cursor: pointer;">Mark All Read</span>
+                            <span style="color: var(--accent); font-size: 0.9rem; cursor: pointer;" onclick="markAllNotificationsRead()">Mark All Read</span>
                         </div>
                         
-                        <div class="notification-list">
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                </div>
-                                <div class="notification-details">
-                                    <div class="notification-title">High Priority - Boiler Inspection Required</div>
-                                    <div class="notification-info">Boiler #B-07 requires immediate inspection - Temperature anomaly detected</div>
-                                </div>
-                                <div class="notification-time">10m ago</div>
-                            </div>
-                            
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <div class="notification-details">
-                                    <div class="notification-title">15 New Approvals</div>
-                                    <div class="notification-info">15 equipment photos from Plant B have been approved</div>
-                                </div>
-                                <div class="notification-time">2h ago</div>
-                            </div>
-                            
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="notification-details">
-                                    <div class="notification-title">Weekly Report Ready</div>
-                                    <div class="notification-info">Weekly equipment inspection report is available for download</div>
-                                </div>
-                                <div class="notification-time">1d ago</div>
-                            </div>
+                        <div class="notification-list" id="notificationList">
+                            <!-- Notifications will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -1013,26 +1093,8 @@
                         <span>Recent Activity</span>
                     </div>
                     
-                    <div class="activity-list">
-                        <div class="activity-item">
-                            <div class="activity-title">Photo of Turbine #T-12 uploaded</div>
-                            <div class="activity-time">10:30 AM</div>
-                        </div>
-                        
-                        <div class="activity-item">
-                            <div class="activity-title">Boiler #B-05 inspection completed</div>
-                            <div class="activity-time">Yesterday, 3:45 PM</div>
-                        </div>
-                        
-                        <div class="activity-item">
-                            <div class="activity-title">Generator #G-08 approved by supervisor</div>
-                            <div class="activity-time">Yesterday, 11:20 AM</div>
-                        </div>
-                        
-                        <div class="activity-item">
-                            <div class="activity-title">New task assigned: Condenser inspection</div>
-                            <div class="activity-time">2 days ago</div>
-                        </div>
+                    <div class="activity-list" id="activityList">
+                        <!-- Activity items will be populated by JavaScript -->
                     </div>
                 </div>
                 
@@ -1041,46 +1103,8 @@
                         <span>Equipment Status</span>
                     </div>
                     
-                    <div class="equipment-list">
-                        <div class="equipment-item">
-                            <div class="equipment-icon">
-                                <i class="fas fa-fire"></i>
-                            </div>
-                            <div class="equipment-name">Boilers</div>
-                            <div class="equipment-count">24</div>
-                        </div>
-                        
-                        <div class="equipment-item">
-                            <div class="equipment-icon">
-                                <i class="fas fa-fan"></i>
-                            </div>
-                            <div class="equipment-name">Turbines</div>
-                            <div class="equipment-count">18</div>
-                        </div>
-                        
-                        <div class="equipment-item">
-                            <div class="equipment-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="equipment-name">Generators</div>
-                            <div class="equipment-count">12</div>
-                        </div>
-                        
-                        <div class="equipment-item">
-                            <div class="equipment-icon">
-                                <i class="fas fa-water"></i>
-                            </div>
-                            <div class="equipment-name">Condensers</div>
-                            <div class="equipment-count">16</div>
-                        </div>
-                        
-                        <div class="equipment-item">
-                            <div class="equipment-icon">
-                                <i class="fas fa-industry"></i>
-                            </div>
-                            <div class="equipment-name">Cooling Towers</div>
-                            <div class="equipment-count">8</div>
-                        </div>
+                    <div class="equipment-list" id="equipmentList">
+                        <!-- Equipment items will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -1088,42 +1112,239 @@
     </div>
     
     <!-- Camera Modal -->
-    <div class="camera-modal" id="cameraModal">
-        <div class="camera-container">
-            <div class="camera-header">
+    <div class="modal" id="cameraModal">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h2>Capture Equipment Photo</h2>
-                <div onclick="closeCamera()" style="color: white; font-size: 1.5rem; cursor: pointer;">
+                <div onclick="closeModal('cameraModal')" style="color: white; font-size: 1.5rem; cursor: pointer;">
                     <i class="fas fa-times"></i>
                 </div>
             </div>
-            <div class="camera-body">
-                <div class="camera-preview">
-                    <div style="text-align: center;">
-                        <i class="fas fa-camera" style="font-size: 3rem; margin-bottom: 15px; color: #777;"></i>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Equipment Type</label>
+                    <select class="form-control" id="equipmentType">
+                        <option value="">Select Equipment Type</option>
+                        <option value="boiler">Boiler</option>
+                        <option value="turbine">Turbine</option>
+                        <option value="generator">Generator</option>
+                        <option value="condenser">Condenser</option>
+                        <option value="cooling-tower">Cooling Tower</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Equipment ID</label>
+                    <input type="text" class="form-control" id="equipmentId" placeholder="e.g., B-12, T-05">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <select class="form-control" id="location">
+                        <option value="">Select Location</option>
+                        <option value="plant-a">Plant A</option>
+                        <option value="plant-b">Plant B</option>
+                        <option value="plant-c">Plant C</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea class="form-control" id="photoNotes" rows="3" placeholder="Add any notes about the equipment condition..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Camera Preview</label>
+                    <div class="photo-img">
+                        <i class="fas fa-camera" style="font-size: 3rem;"></i>
                         <p>Camera feed would appear here</p>
                     </div>
                 </div>
-                <p>Position the equipment clearly in frame and ensure good lighting</p>
             </div>
-            <div class="camera-footer">
-                <button class="btn btn-secondary">
-                    <i class="fas fa-images"></i> Choose from Gallery
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('cameraModal')">
+                    <i class="fas fa-times"></i> Cancel
                 </button>
-                <div class="capture-btn" onclick="capturePhoto()">
-                    <i class="fas fa-camera"></i>
-                </div>
                 <button class="btn btn-primary" onclick="capturePhoto()">
                     <i class="fas fa-camera"></i> Capture Photo
                 </button>
             </div>
         </div>
     </div>
+    
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Equipment Photos</h2>
+                <div onclick="closeModal('uploadModal')" style="color: white; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Select Photos</label>
+                    <input type="file" class="form-control" id="photoUpload" multiple accept="image/*">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Equipment Type</label>
+                    <select class="form-control" id="uploadEquipmentType">
+                        <option value="">Select Equipment Type</option>
+                        <option value="boiler">Boiler</option>
+                        <option value="turbine">Turbine</option>
+                        <option value="generator">Generator</option>
+                        <option value="condenser">Condenser</option>
+                        <option value="cooling-tower">Cooling Tower</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <select class="form-control" id="uploadLocation">
+                        <option value="">Select Location</option>
+                        <option value="plant-a">Plant A</option>
+                        <option value="plant-b">Plant B</option>
+                        <option value="plant-c">Plant C</option>
+                    </select>
+                </div>
+                
+                <div id="uploadPreview" class="photo-grid mt-20">
+                    <!-- Upload preview will appear here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('uploadModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-primary" onclick="uploadPhotos()">
+                    <i class="fas fa-upload"></i> Upload Photos
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Compare Modal -->
+    <div class="modal" id="compareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Compare Equipment Photos</h2>
+                <div onclick="closeModal('compareModal')" style="color: white; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="filter-row">
+                    <div class="filter-item">
+                        <div class="filter-label">Select First Photo</div>
+                        <select class="filter-select" id="comparePhoto1">
+                            <option value="">Select a photo</option>
+                            <option value="boiler-b12">Boiler B-12 (Today)</option>
+                            <option value="turbine-t05">Turbine T-05 (Yesterday)</option>
+                            <option value="generator-g08">Generator G-08 (2 days ago)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <div class="filter-label">Select Second Photo</div>
+                        <select class="filter-select" id="comparePhoto2">
+                            <option value="">Select a photo</option>
+                            <option value="boiler-b12-old">Boiler B-12 (Last Week)</option>
+                            <option value="turbine-t05-old">Turbine T-05 (Last Month)</option>
+                            <option value="generator-g08-old">Generator G-08 (Last Quarter)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="photo-grid mt-20" id="comparePreview">
+                    <!-- Comparison preview will appear here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('compareModal')">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button class="btn btn-primary" onclick="generateComparisonReport()">
+                    <i class="fas fa-file-pdf"></i> Generate Report
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Application State
+        const appState = {
+            currentRole: 'worker',
+            currentPage: 'dashboard',
+            photos: [
+                { id: 1, title: 'Boiler #B-12', type: 'boiler', location: 'Plant A', status: 'pending', date: 'Today, 10:30 AM', notes: 'Temperature check' },
+                { id: 2, title: 'Turbine #T-05', type: 'turbine', location: 'Plant B', status: 'approved', date: 'Yesterday, 2:15 PM', notes: 'Vibration analysis' },
+                { id: 3, title: 'Generator #G-08', type: 'generator', location: 'Plant A', status: 'rejected', date: '2 days ago, 9:45 AM', notes: 'Weekly inspection' },
+                { id: 4, title: 'Condenser #C-15', type: 'condenser', location: 'Plant C', status: 'approved', date: '3 days ago, 11:20 AM', notes: 'Pressure test' }
+            ],
+            notifications: [
+                { id: 1, title: 'High Priority - Boiler Inspection Required', info: 'Boiler #B-07 requires immediate inspection', time: '10m ago', read: false },
+                { id: 2, title: '15 New Approvals', info: '15 equipment photos from Plant B have been approved', time: '2h ago', read: false },
+                { id: 3, title: 'Weekly Report Ready', info: 'Weekly equipment inspection report is available', time: '1d ago', read: true }
+            ],
+            activities: [
+                { title: 'Photo of Turbine #T-12 uploaded', time: '10:30 AM' },
+                { title: 'Boiler #B-05 inspection completed', time: 'Yesterday, 3:45 PM' },
+                { title: 'Generator #G-08 approved by supervisor', time: 'Yesterday, 11:20 AM' },
+                { title: 'New task assigned: Condenser inspection', time: '2 days ago' }
+            ],
+            equipment: [
+                { name: 'Boilers', count: 24, icon: 'fa-fire' },
+                { name: 'Turbines', count: 18, icon: 'fa-fan' },
+                { name: 'Generators', count: 12, icon: 'fa-bolt' },
+                { name: 'Condensers', count: 16, icon: 'fa-water' },
+                { name: 'Cooling Towers', count: 8, icon: 'fa-industry' }
+            ]
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupEventListeners();
+            renderDashboard();
+        });
+
+        // Initialize application state
+        function initializeApp() {
+            updateCounts();
+            renderRecentUploads();
+            renderNotifications();
+            renderActivities();
+            renderEquipment();
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const page = this.getAttribute('data-page');
+                    navigateTo(page);
+                });
+            });
+
+            // Filter changes
+            document.getElementById('equipmentFilter').addEventListener('change', applyFilters);
+            document.getElementById('locationFilter').addEventListener('change', applyFilters);
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+            document.getElementById('technicianFilter').addEventListener('change', applyFilters);
+            document.getElementById('dateFrom').addEventListener('change', applyFilters);
+            document.getElementById('dateTo').addEventListener('change', applyFilters);
+
+            // File upload preview
+            document.getElementById('photoUpload').addEventListener('change', handleFileUpload);
+        }
+
         // Role switching functionality
         function switchRole(role) {
-            const workerDashboard = document.querySelector('.worker-dashboard');
-            const executiveDashboard = document.querySelector('.executive-dashboard');
+            appState.currentRole = role;
+            const workerDashboard = document.getElementById('workerDashboard');
+            const executiveDashboard = document.getElementById('executiveDashboard');
             const workerBtn = document.querySelector('.role-switcher .role-btn:nth-child(1)');
             const executiveBtn = document.querySelector('.role-switcher .role-btn:nth-child(2)');
             const userName = document.getElementById('userName');
@@ -1144,24 +1365,303 @@
                 userName.textContent = 'Anjali Sharma';
                 userRole.textContent = 'Executive Manager';
             }
+            
+            updateCounts();
         }
-        
-        // Camera functions
-        function openCamera() {
-            document.getElementById('cameraModal').style.display = 'flex';
+
+        // Navigation function
+        function navigateTo(page) {
+            appState.currentPage = page;
+            document.getElementById('pageTitle').textContent = getPageTitle(page);
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-page') === page) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // In a real app, this would load the appropriate page content
+            alert(`Navigating to ${getPageTitle(page)} page...`);
         }
-        
-        function closeCamera() {
-            document.getElementById('cameraModal').style.display = 'none';
+
+        // Get page title
+        function getPageTitle(page) {
+            const titles = {
+                dashboard: 'Equipment Monitoring Dashboard',
+                capture: 'Capture Equipment Photos',
+                gallery: 'Photo Gallery',
+                tasks: 'Task Management',
+                history: 'Upload History',
+                reports: 'Analytics & Reports',
+                settings: 'Application Settings'
+            };
+            return titles[page] || 'NTPC Equipment Monitor';
         }
-        
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Update counts based on current data
+        function updateCounts() {
+            const pendingCount = appState.photos.filter(p => p.status === 'pending').length;
+            const approvedCount = appState.photos.filter(p => p.status === 'approved').length;
+            const rejectedCount = appState.photos.filter(p => p.status === 'rejected').length;
+            
+            document.getElementById('pendingCount').textContent = pendingCount;
+            document.getElementById('approvedCount').textContent = approvedCount;
+            document.getElementById('rejectedCount').textContent = rejectedCount;
+            
+            // Executive stats (simulated)
+            document.getElementById('totalUploads').textContent = appState.photos.length * 12;
+            document.getElementById('approvalRate').textContent = Math.round((approvedCount / appState.photos.length) * 100) + '%';
+            document.getElementById('pendingReview').textContent = pendingCount * 3;
+        }
+
+        // Render recent uploads
+        function renderRecentUploads() {
+            const container = document.getElementById('recentUploads');
+            container.innerHTML = '';
+            
+            appState.photos.forEach(photo => {
+                const iconClass = getEquipmentIcon(photo.type);
+                const statusClass = `status-${photo.status}`;
+                const statusText = photo.status.charAt(0).toUpperCase() + photo.status.slice(1);
+                
+                const item = document.createElement('div');
+                item.className = 'upload-item';
+                item.innerHTML = `
+                    <div class="upload-icon">
+                        <i class="fas ${iconClass}"></i>
+                    </div>
+                    <div class="upload-details">
+                        <div class="upload-title">${photo.title} - ${photo.notes}</div>
+                        <div class="upload-info">${photo.date} | ${photo.location}</div>
+                    </div>
+                    <div class="upload-status ${statusClass}">${statusText}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Render notifications
+        function renderNotifications() {
+            const container = document.getElementById('notificationList');
+            container.innerHTML = '';
+            
+            appState.notifications.forEach(notification => {
+                const item = document.createElement('div');
+                item.className = 'notification-item';
+                item.innerHTML = `
+                    <div class="notification-icon">
+                        <i class="fas ${notification.read ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    </div>
+                    <div class="notification-details">
+                        <div class="notification-title">${notification.title}</div>
+                        <div class="notification-info">${notification.info}</div>
+                    </div>
+                    <div class="notification-time">${notification.time}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Render activities
+        function renderActivities() {
+            const container = document.getElementById('activityList');
+            container.innerHTML = '';
+            
+            appState.activities.forEach(activity => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                item.innerHTML = `
+                    <div class="activity-title">${activity.title}</div>
+                    <div class="activity-time">${activity.time}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Render equipment
+        function renderEquipment() {
+            const container = document.getElementById('equipmentList');
+            container.innerHTML = '';
+            
+            appState.equipment.forEach(item => {
+                const equipmentItem = document.createElement('div');
+                equipmentItem.className = 'equipment-item';
+                equipmentItem.innerHTML = `
+                    <div class="equipment-icon">
+                        <i class="fas ${item.icon}"></i>
+                    </div>
+                    <div class="equipment-name">${item.name}</div>
+                    <div class="equipment-count">${item.count}</div>
+                `;
+                container.appendChild(equipmentItem);
+            });
+        }
+
+        // Get equipment icon
+        function getEquipmentIcon(type) {
+            const icons = {
+                boiler: 'fa-fire',
+                turbine: 'fa-fan',
+                generator: 'fa-bolt',
+                condenser: 'fa-water',
+                'cooling-tower': 'fa-industry'
+            };
+            return icons[type] || 'fa-cog';
+        }
+
+        // Handle file upload preview
+        function handleFileUpload(event) {
+            const container = document.getElementById('uploadPreview');
+            container.innerHTML = '';
+            
+            const files = event.target.files;
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const item = document.createElement('div');
+                        item.className = 'photo-item';
+                        item.innerHTML = `
+                            <div class="photo-img">
+                                <img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="photo-info">
+                                <div class="photo-title">${file.name}</div>
+                                <div class="photo-details">${(file.size / 1024).toFixed(2)} KB</div>
+                            </div>
+                        `;
+                        container.appendChild(item);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        // Apply filters (executive view)
+        function applyFilters() {
+            // In a real app, this would filter the data and update the display
+            console.log('Filters applied:', {
+                equipment: document.getElementById('equipmentFilter').value,
+                location: document.getElementById('locationFilter').value,
+                status: document.getElementById('statusFilter').value,
+                technician: document.getElementById('technicianFilter').value,
+                dateFrom: document.getElementById('dateFrom').value,
+                dateTo: document.getElementById('dateTo').value
+            });
+            
+            alert('Filters applied! Data would be filtered in a real application.');
+        }
+
+        // Capture photo function
         function capturePhoto() {
-            alert('Photo captured! You can now add equipment details.');
-            closeCamera();
+            const equipmentType = document.getElementById('equipmentType').value;
+            const equipmentId = document.getElementById('equipmentId').value;
+            const location = document.getElementById('location').value;
+            const notes = document.getElementById('photoNotes').value;
+            
+            if (!equipmentType || !equipmentId || !location) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Simulate photo capture and upload
+            const newPhoto = {
+                id: appState.photos.length + 1,
+                title: `${equipmentType.charAt(0).toUpperCase() + equipmentType.slice(1)} #${equipmentId}`,
+                type: equipmentType,
+                location: location,
+                status: 'pending',
+                date: 'Just now',
+                notes: notes
+            };
+            
+            appState.photos.unshift(newPhoto);
+            updateCounts();
+            renderRecentUploads();
+            
+            closeModal('cameraModal');
+            alert('Photo captured successfully! It has been uploaded for review.');
         }
-        
-        function viewUploadedPhotos() {
-            alert('Opening photo gallery...');
+
+        // Upload photos function
+        function uploadPhotos() {
+            const equipmentType = document.getElementById('uploadEquipmentType').value;
+            const location = document.getElementById('uploadLocation').value;
+            const files = document.getElementById('photoUpload').files;
+            
+            if (!equipmentType || !location || files.length === 0) {
+                alert('Please select photos and fill in all required fields');
+                return;
+            }
+            
+            // Simulate upload process
+            for (let i = 0; i < files.length; i++) {
+                const newPhoto = {
+                    id: appState.photos.length + 1,
+                    title: `${equipmentType.charAt(0).toUpperCase() + equipmentType.slice(1)} #${Math.floor(Math.random() * 20) + 1}`,
+                    type: equipmentType,
+                    location: location,
+                    status: 'pending',
+                    date: 'Just now',
+                    notes: 'Uploaded from device'
+                };
+                
+                appState.photos.unshift(newPhoto);
+            }
+            
+            updateCounts();
+            renderRecentUploads();
+            
+            closeModal('uploadModal');
+            alert(`${files.length} photos uploaded successfully! They have been submitted for review.`);
+        }
+
+        // Mark all notifications as read
+        function markAllNotificationsRead() {
+            appState.notifications.forEach(notification => {
+                notification.read = true;
+            });
+            renderNotifications();
+        }
+
+        // Generate comparison report
+        function generateComparisonReport() {
+            const photo1 = document.getElementById('comparePhoto1').value;
+            const photo2 = document.getElementById('comparePhoto2').value;
+            
+            if (!photo1 || !photo2) {
+                alert('Please select two photos to compare');
+                return;
+            }
+            
+            alert('Comparison report generated! In a real application, this would create a PDF report.');
+            closeModal('compareModal');
+        }
+
+        // Toggle user menu (placeholder)
+        function toggleUserMenu() {
+            alert('User menu would appear here');
+        }
+
+        // Render dashboard based on current state
+        function renderDashboard() {
+            // This would render the appropriate dashboard based on current state
+            // For now, we just ensure the correct view is shown
+            switchRole(appState.currentRole);
         }
     </script>
 </body>
