@@ -41,7 +41,7 @@
 
         /* Animated Background */
         .background {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -74,7 +74,7 @@
         }
 
         .floating-shapes {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -144,6 +144,7 @@
             display: flex;
             max-width: 1000px;
             width: 100%;
+            min-height: 600px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
             overflow: hidden;
@@ -164,6 +165,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            min-width: 0;
         }
 
         .info-section {
@@ -176,6 +178,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            min-width: 0;
         }
 
         .info-section::before {
@@ -259,6 +262,7 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--dark);
+            font-size: 16px;
         }
 
         .input-with-icon {
@@ -272,6 +276,7 @@
             transform: translateY(-50%);
             color: var(--gray);
             transition: color 0.3s;
+            font-size: 18px;
         }
 
         input {
@@ -282,6 +287,7 @@
             font-size: 16px;
             transition: all 0.3s;
             background: rgba(255, 255, 255, 0.8);
+            height: 52px;
         }
 
         input:focus {
@@ -300,6 +306,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
+            flex-wrap: wrap;
         }
 
         .remember {
@@ -308,8 +315,14 @@
         }
 
         .remember input {
-            width: auto;
+            width: 18px;
+            height: 18px;
             margin-right: 8px;
+        }
+
+        .remember label {
+            margin-bottom: 0;
+            font-size: 15px;
         }
 
         .forgot {
@@ -318,6 +331,7 @@
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
+            font-size: 15px;
         }
 
         .forgot::after {
@@ -350,6 +364,7 @@
             box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
             position: relative;
             overflow: hidden;
+            height: 52px;
         }
 
         .btn-login::before {
@@ -378,6 +393,7 @@
             margin: 20px 0;
             position: relative;
             color: var(--gray);
+            font-size: 15px;
         }
 
         .divider::before {
@@ -425,6 +441,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 52px;
         }
 
         .google-btn::before {
@@ -502,6 +519,7 @@
         .signup {
             text-align: center;
             color: var(--gray);
+            font-size: 15px;
         }
 
         .signup a {
@@ -616,7 +634,8 @@
             opacity: 0.9;
         }
 
-        /* Responsive Design */
+        /* Responsive Design - Clear Breakpoints */
+        /* For tablets and smaller desktops */
         @media (max-width: 1024px) {
             .container {
                 max-width: 90%;
@@ -635,10 +654,12 @@
             }
         }
 
+        /* For tablets in portrait and large phones */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
                 max-width: 95%;
+                min-height: auto;
             }
             
             .info-section {
@@ -669,6 +690,7 @@
             }
         }
 
+        /* For mobile phones */
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -705,14 +727,25 @@
             }
             
             input, .btn-login, .google-btn {
-                padding: 12px;
-                font-size: 15px;
+                padding: 12px 12px 12px 42px;
+                font-size: 16px;
+                height: 50px;
+            }
+            
+            .input-with-icon i {
+                left: 12px;
+                font-size: 16px;
             }
             
             .options {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .remember label, .forgot {
+                font-size: 14px;
             }
             
             .features li {
@@ -722,8 +755,22 @@
             .sync-status {
                 padding: 15px;
             }
+            
+            .google-btn {
+                max-width: 100%;
+                padding: 12px;
+            }
+            
+            .divider, .signup {
+                font-size: 14px;
+            }
+            
+            .btn-login, .google-btn {
+                font-size: 15px;
+            }
         }
 
+        /* For very small mobile phones */
         @media (max-width: 360px) {
             .login-section, .info-section {
                 padding: 15px;
@@ -741,10 +788,31 @@
                 padding: 10px 15px;
                 font-size: 14px;
             }
+            
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            input, .btn-login, .google-btn {
+                height: 48px;
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .input-with-icon i {
+                left: 12px;
+                font-size: 15px;
+            }
+            
+            label {
+                font-size: 15px;
+            }
         }
 
         .particles {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -939,11 +1007,6 @@
             
             particlesContainer.appendChild(particle);
         }
-
-        // Handle responsive adjustments on window resize
-        window.addEventListener('resize', function() {
-            // Any additional responsive adjustments can go here
-        });
     </script>
 </body>
 </html>
